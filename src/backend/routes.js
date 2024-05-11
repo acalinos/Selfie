@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Importo User e Post da userDetails, i quali rappresentano i dettagli degli utenti e dei post
-const { User, Note} = require('../details.js');
+const { User, Note} = require('./details.js');
 
 // Funzioni di backend relative alla gestione degli utenti
 
