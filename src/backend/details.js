@@ -1,3 +1,4 @@
+const { type } = require("@testing-library/user-event/dist/type");
 const mongoose = require("mongoose");                          // importo il modulo mongoose
 mongoose.connect("mongodb://0.0.0.0:27017/selfie")             // connessione al database mongodb
 
@@ -47,27 +48,142 @@ const userSchema = new mongoose.Schema({
     //     type: Boolean,
     //     default: false
     // }
+
+    // booleano per verificare se l'utente è umano
+    humanBoolean: {
+        type: Boolean,
+        default: true
+    },
+
+    // booleano per verificare se l'utente è un amministratore
+    mgmtBoolean: {
+        type: Boolean,
+        default: false
+    }
+})
+
+const eventSchema = new mongoose.Schema({
+    // id dell'autore dell'evento
+    authorId: {
+        type: String
+    },
+
+    // titolo dell'evento
+    title: {
+        type: String,
+        default: "New event"
+    },
+
+    // luogo dell'evento
+    location: {
+        type: String,
+        default: ""
+    },
+
+    // descrizione dell'evento
+    description: {
+        type: String,
+        default: ""
+    },
+
+    // data e ora di creazione dell'evento
+    creation: {
+        type: Date,
+        default: Date.now
+    },
+
+    // data e ora di inizio dell'evento
+    start: {
+        type: Date
+    },
+
+    // data e ora di fine dell'evento
+    end: {
+        type: Date
+    },
+
+    // array degli utenti che partecipano all'evento
+    attendees: {
+        type: Array,
+        default: []
+    },
+
+    // ricorrenza dell'evento
+    recurrence: {
+        type: String,
+        default: "none"
+        // da verificare: https://www.npmjs.com/package/datebook
+    }
+})
+
+const taskSchema = new mongoose.Schema({
+    // id dell'autore del task
+    authorId: {
+        type: String
+    },
+
+    // titolo del task
+    title: {
+        type: String,
+        default: "New task"
+    },
+
+    // descrizione del task
+    description: {
+        type: String,
+        default: ""
+    },
+
+    // data e ora di creazione e inizio del task
+    start: {
+        type: Date,
+        default: Date.now
+    },
+
+    // data e ora di scadenza del task
+    deadline: {
+        type: Date
+    },
+
+    // booleano per verificare se il task è stato completato
+    completed: {
+        type: Boolean,
+        default: false
+    },
+
+    // array di utenti che partecipano al task
+    attendees: {
+        type: Array,
+        default: []
+    },
+
+    // id della sovra-attività di riferiento
+    referredTask: {
+        type: String,
+        default: ""
+    }
+
 })
 
 const noteSchema = new mongoose.Schema({
-    // username dell'autore del post
+    // username dell'autore dell'appunto
     author: {
         type: String
     },
 
-    // contenuto del post (testo)
+    // contenuto dell'appunto (testo)
     text: {
         type: String,
         default: ""
     },
 
-    // data e ora di creazione del post
+    // data e ora di creazione dell'appunto
     date: {
         type: Date,
         default: Date.now
     },
 
-    // categoria della nota
+    // categoria dell'appunto
     category: {
         type: String,
         default: "NEW"
