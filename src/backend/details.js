@@ -128,6 +128,11 @@ const taskSchema = new mongoose.Schema({
         default: "New task"
     },
 
+    // luogo del task
+    location: {
+        type: String
+    },
+
     // descrizione del task
     description: {
         type: String,
@@ -167,7 +172,7 @@ const taskSchema = new mongoose.Schema({
 
 const noteSchema = new mongoose.Schema({
     // username dell'autore dell'appunto
-    author: {
+    authorId: {
         type: String
     },
 
@@ -186,13 +191,15 @@ const noteSchema = new mongoose.Schema({
     // categoria dell'appunto
     category: {
         type: String,
-        default: "NEW"
+        default: "NONE"
     }
 })
 
 // Creo i modelli collection, associati agli schemi creati precedentemente
 const User = mongoose.model("User", userSchema);
+const Event = mongoose.model("Event", eventSchema);
+const Task = mongoose.model("Task", taskSchema);
 const Note = mongoose.model("Note", noteSchema);
 
 // Esporto i moduli collection così da poterli utilizzare in altri file
-module.exports = { User, Note };
+module.exports = { User, Event, Task, Note };

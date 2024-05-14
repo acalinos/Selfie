@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 // Importo User e Post da userDetails, i quali rappresentano i dettagli degli utenti e dei post
-const { User, Note} = require('./details.js');
+const { User, Event, Task, Note } = require('./details.js');
 
 // Funzioni di backend relative alla gestione degli utenti
 
@@ -19,7 +19,7 @@ router.post("/registrazione", async (req, res) => {
                 fullname: fullname,
                 username: username,
                 password: password,
-                number: number,
+                number: number
             })
             res.json("success")
         }
@@ -71,57 +71,6 @@ router.get("/ottieni-propic/:username", async (req, res) => {
     }
 })
 
-// Funzione asincrona per il calcolo della popolarità di un utente
-router.post("/calcola-popolarita/:username", async (req, res) => {
-    const { username } = req.params
-    try {
-        let positiveReactions = 0;
-
-        // Cerco i post dell'utente con receiver "all" o "channel"
-        const posts = await Post.find({
-            author: username,
-            $or: [{ receiverType: "all" }, { receiverType: "§channel" }, { receiverType: "channel" }]
-        });
-
-        if (posts.length !== 0) {
-            for (let i = 0; i < posts.length; i++) {
-                positiveReactions = positiveReactions + posts[i].laughUsers.length + posts[i].lovelyUsers.length + posts[i].heartUsers.length;
-            }
-
-            const popularity = Math.floor(positiveReactions / posts.length);
-            const user = await User.findOneAndUpdate({ username: username }, { $set: { popularity: popularity } });
-
-            if (user) {
-                res.json("success");
-            }
-        }
-        else {
-            const popularity = 0;
-            const user = await User.findOneAndUpdate({ username: username }, { $set: { popularity: popularity } });
-
-            if (user) {
-                res.json("success");
-            }
-        }
-    }
-    catch (e) {
-        console.log(e);
-    }
-})
-
-// Funzione asincrona per ottenere la popolarità di un utente
-router.get("/ottieni-popolarita/:username", async (req, res) => {
-    const { username } = req.params
-    try {
-        const user = await User.findOne({ username: username })
-        res.json(user.popularity)
-    }
-    catch (e) {
-        console.log(e)
-    }
-})
-
-
 // Funzione asincrona per il login di un utente già iscritto
 router.post("/accesso", async (req, res) => {
     const { username, password } = req.body
@@ -159,7 +108,7 @@ router.post("/controlla-username", async (req, res) => {
 })
 
 // Funzione asincrona che prende la domanda di sicurezza associata all'username in URL
-router.get("/prendi-domanda/:username", async (req, res) => {
+router.get("/ottieni-domanda/:username", async (req, res) => {
     const { username } = req.params
     try {
         const user = await User.findOne({ username: username })
@@ -200,94 +149,12 @@ router.post("/cambia-password", async (req, res) => {
     }
 })
 
-//Funzione che seleziona l'smm
-router.post("/smm", async (req, res) => {
-    try {
-        const { username, smm } = req.body;
-
-        // Check if the user is a professional user
-        const professionalUser = await User.findOne({ username, userType: "pro" });
-        if (!professionalUser) {
-            return res.status(404).json({ message: 'Non sei un utente professionale, non puoi associare un social media manager.' });
-        }
-
-        // Find the SMM and check if it has three accounts already
-        const socialmm = await User.findOne({ username: smm });
-        if (socialmm.account1 !== "" && socialmm.account2 !== "" && socialmm.account3 !== "") {
-            return res.status(404).json({ message: 'Questo smm ha già tre account associati, non puoi associarne altri.' });
-        }
-
-        // Update the SMM's accounts and the user's SMM
-        let updatedSMM;
-        if (socialmm.account1 === "") {
-            updatedSMM = await User.findOneAndUpdate({ username: smm }, { $set: { account1: username } });
-        } else if (socialmm.account2 === "") {
-            updatedSMM = await User.findOneAndUpdate({ username: smm }, { $set: { account2: username } });
-        } else {
-            updatedSMM = await User.findOneAndUpdate({ username: smm }, { $set: { account3: username } });
-        }
-
-        const updatedUser = await User.findOneAndUpdate({ username }, { $set: { smm } });
-
-        if (updatedUser && updatedSMM) {
-            return res.json("success");
-        } else {
-            return res.status(500).json({ message: 'Errore durante l\'associazione SMM.' });
-        }
-    } catch (e) {
-        console.error(e);
-        return res.status(500).json({ message: 'Errore interno del server.' });
-    }
-});
-
-//rimuove smm
-router.post("/removesmm", async (req, res) => {
-    try {
-        const { username } = req.body;
-
-        // Find the user
-        const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(404).json({ message: 'Utente non trovato.' });
-        }
-
-        // Get the associated SMM username
-        const smmUsername = user.smm;
-
-        // Find the SMM and check if it has three accounts already
-        const socialmm = await User.findOne({ username: smmUsername });
-        if (!socialmm) {
-            return res.status(404).json({ message: 'SMM non trovato.' });
-        }
-
-        if (socialmm.account1 !== "" && socialmm.account2 !== "" && socialmm.account3 !== "") {
-            return res.status(404).json({ message: 'Questo SMM ha già tre account associati, non puoi associarne altri.' });
-        }
-
-        // Update the SMM's accounts
-        if (socialmm.account1 === username) {
-            await User.findOneAndUpdate({ username: smmUsername }, { $set: { account1: "" } });
-        } else if (socialmm.account2 === username) {
-            await User.findOneAndUpdate({ username: smmUsername }, { $set: { account2: "" } });
-        } else if (socialmm.account3 === username) {
-            await User.findOneAndUpdate({ username: smmUsername }, { $set: { account3: "" } });
-        }
-
-        // Update the user's SMM
-        await User.findOneAndUpdate({ username }, { $set: { smm: "" } });
-
-        return res.json("success");
-    } catch (e) {
-        console.error(e);
-        return res.status(500).json({ message: 'Errore interno del server.' });
-    }
-});
-
 // Funzione asincrona per l'eliminazione di un utente
 router.delete("/elimina-account/:username", async (req, res) => {
     const { username } = req.params;
     try {
         const user = await User.findOne({ username: username });
+        const userId = user._id
 
         if (!user) {
             return res.status(404).json({ message: 'Utente non trovato' });
@@ -297,16 +164,109 @@ router.delete("/elimina-account/:username", async (req, res) => {
         // o altri metodi di autenticazione dell'utente prima di consentire l'eliminazione dell'account.
 
         await User.deleteOne({
-            username: username
+            _id: userId
         });
 
+        await Event.deleteMany({
+            authorId: userId
+        })
+
+        await Task.deleteMany({
+            authorId: userId
+        })
+
         await Note.deleteMany({
-            author: username
+            authorId: userId
         });
 
         res.json("success");
     } catch (e) {
         console.error(e);
+    }
+})
+
+// Funzioni di backend relative alla gestione degli eventi
+
+// Funzione asincrona per la creazione di un evento
+router.post("/crea-evento", async (req, res) => {
+    const { authorId, title, location, description,
+            creation, start, end, attendees, recurrence
+     } = req.body
+    try {
+        await Event.create({
+            authorId: authorId,
+            title: title,
+            location: location,
+            description: description,
+            creation: creation,
+            start: start,
+            end: end,
+            attendees: attendees,
+            recurrence: recurrence
+        })
+        res.json("success")
+    }
+    catch(e) {
+        console.log(e)
+    }
+})
+
+// Funzioni di backend relative alla gestione degli eventi
+
+// Funzione asincrona per la creazione di un'attività
+router.post("/crea-attivita", async (req, res) => {
+    const { authorId, title, location, description,
+            deadline, attendees, referredTask
+     } = req.body
+    try {
+        await Task.create({
+            authorId: authorId,
+            title: title,
+            location: location,
+            description: description,
+            deadline: deadline,
+            attendees: attendees,
+            referredTask: referredTask
+        })
+        res.json("success")
+    }
+    catch(e) {
+        console.log(e)
+    }
+})
+
+// Funzione asincrona per completare un'attività
+router.post("/completa-attivita/:taskId", async (req, res) => {
+    const { taskId } = req.params
+    try {
+        await Task.findOneAndUpdate({
+            _id: taskId
+        }, {
+            $set: {
+                completed: true
+            }
+        })
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
+
+// Funzioni di backend relative alla gestione delle note
+
+// Funzione asincrona per la creazione di una nota
+router.post("/crea-nota", async (req, res) => {
+    const { authorId, text, category } = req.body
+    try {
+        await Note.create({
+            authorId: authorId,
+            text: text,
+            category: category
+        })
+        res.json("success")
+    }
+    catch(e) {
+        console.log(e)
     }
 })
 
