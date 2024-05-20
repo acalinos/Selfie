@@ -28,7 +28,7 @@ function Notes() {
             <br />
             <div style={flexrow1gap}>
                 <input type="text" id="title" name="title" style={{ fontSize: '1.5em', width: '20em', border: 'none', textAlign: 'center' }} placeholder="Title" />
-                <input type="textarea" id="description" name="description" style={{ width: '90%', height: '75vh', justifyContent: 'left'}} />
+                <textarea id="description" name="description" style={{ width: '90%', height: '75vh', justifyContent: 'left'}} />
             </div>
             <input type="submit" value="Save" style={{position: 'relative', left: '92vw', top: '1em'}} />
         </div>
