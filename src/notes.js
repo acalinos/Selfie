@@ -8,12 +8,6 @@ function Notes() {
         textAlign: 'center',
     };
 
-    const flex1gap = {
-        display: 'flex',
-        gap: '1em',
-        justifyContent: 'center',
-    };
-
     const flexrow1gap = {
         display: 'flex',
         flexDirection: 'column',
