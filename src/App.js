@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from "./login";
 import SignUp from "./signup";
+import Events from "./events";
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       <Route path="/" element={<Login />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/events" element={<Events />} />
 
       {/* Routes protette */}
       {/* <Route path="/home/:username" element={<AuthGuard> <Home /> </AuthGuard>} /> */}
