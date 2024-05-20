@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from "./login";
 import SignUp from "./signup";
 import Events from "./events";
+import Notes from "./notes";
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/events" element={<Events />} />
+      <Route path="/notes" element={<Notes />} />
 
       {/* Routes protette */}
       {/* <Route path="/home/:username" element={<AuthGuard> <Home /> </AuthGuard>} /> */}

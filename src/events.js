@@ -17,23 +17,44 @@ function Events() {
     return (
         <div>
             <h1 style={divStyle}>Selfie</h1>
+            <br />
+            <div style={flex1gap}>
+                <label >Title:</label>
+                <input type="text" id="title" name="title" style={{ width: '20em' }} />
+            </div>
+            <br />
+            <div style={flex1gap}>
+                <label >Description:</label>
+                <input type="textarea" id="description" name="description" style={{ width: '25em', height: '7em' }} />
+            </div>
+            <br />
+            <br />
             <div className="form-group" style={flex1gap}>
                 <label style={divStyle}>Start:</label>
                 <input type="date" id="start" name="dateStandard" />
-                <input className="form-control" id="timeStandard" type="time" style={{ width: '20%' }} />
+                <input className="form-control" id="timeStandard" type="time" style={{ width: '7em' }} />
             </div>
+            <br />
             <div className="form-group" style={flex1gap}>
                 <label style={divStyle}>End:</label>
                 <input type="date" id="end" name="dateStandard" />
-                <input className="form-control" id="timeStandard" type="time" style={{ width: '20%' }} />
+                <input className="form-control" id="timeStandard" type="time" style={{ width: '7em' }} />
             </div>
+            <br />
             <br />
             <div className="form-group" style={flex1gap}>
                 <label style={divStyle}>Time zone:</label>
             </div>
+            <br />
             <div className="form-group" style={flex1gap}>
                 <label style={divStyle}>Location:</label>
             </div>
+            <br />
+            <div className="form-group" style={flex1gap}>
+                <label style={divStyle}>Attendees:</label>
+                <input type="text" id="attendees" name="attendees" style={{ width: '20em' }} />
+            </div>
+            <br />
             <br />
             <div className="form-group" style={flex1gap}>
                 <label style={divStyle}>Repeat:</label>
@@ -48,6 +69,7 @@ function Events() {
                 <input type="number" name="" style={{ width: '5em' }} />
                 <label style={divStyle}>occurrences</label>
             </div>
+            <br />
             <div className="form-group" style={flex1gap}>
                 <label style={divStyle}>Notify me:</label>
                 <input type="number" name="" style={{ width: '5em' }} />
