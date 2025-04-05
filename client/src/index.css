@@ -1,0 +1,428 @@
+@import url("https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @property --pomodoro-gradient-value {
+    syntax: "<percentage>";
+    initial-value: 0%;
+    inherits: true;
+  }
+
+  :root {
+    /* Variables for pomodoro animation */
+    --logo-sm: 69px;
+    --pomodoro-size: 300px;
+    --orbit-size: calc(var(--pomodoro-size) / 12);
+    --pomodoro-container-size: calc(var(--pomodoro-size) + var(--orbit-size));
+    --petal-size: calc(var(--pomodoro-size) / 4);
+    --petal-transform: calc(0px - var(--pomodoro-size) / 3.75);
+    /* Utilities */
+    --navbar-h: 60px;
+    /* Theme Variables */
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 352, 40%, 98%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 346.8 77.2% 49.8%;
+    --radius: 0.5rem;
+    /* Other colors */
+    --sunflower-black: 47.9 95.8% 13.1%;
+    --sunflower-yellow: 47.9 95.8% 53.1%;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+    --primary: 346.8 77.2% 49.8%;
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 346.8 77.2% 49.8%;
+  }
+}
+
+@screen md {
+  :root {
+    --pomodoro-size: 390px;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans overflow-x-hidden;
+  }
+  nav {
+    @apply w-screen md:h-[--navbar-h];
+  }
+  p {
+    @apply small-regular sm:base-regular;
+  }
+  h1 {
+    @apply scroll-m-20 font-extrabold tracking-tight text-3xl sm:text-5xl;
+  }
+  h2 {
+    @apply scroll-m-20 font-semibold tracking-tight text-2xl sm:text-4xl;
+  }
+}
+
+@layer utilities {
+  /* TYPOGRAPHY */
+  .h1-bold {
+    @apply text-[36px] font-bold leading-[140%] tracking-tighter;
+  }
+
+  .h1-semibold {
+    @apply text-[36px] font-semibold leading-[140%] tracking-tighter;
+  }
+
+  .h2-bold {
+    @apply text-[30px] font-bold leading-[140%] tracking-tighter;
+  }
+
+  .h3-bold {
+    @apply text-[24px] font-bold leading-[140%] tracking-tighter;
+  }
+
+  .base-semibold {
+    @apply text-[16px] font-semibold leading-[140%] tracking-tighter;
+  }
+
+  .base-medium {
+    @apply text-[16px] font-medium leading-[140%];
+  }
+
+  .base-regular {
+    @apply text-[16px] font-normal leading-[140%];
+  }
+
+  .body-bold {
+    @apply text-[18px] font-bold leading-[140%];
+  }
+
+  .body-medium {
+    @apply text-[18px] font-medium leading-[140%];
+  }
+
+  .timer-medium {
+    @apply text-[calc(var(--pomodoro-size)/13)] font-medium leading-[140%] tracking-wide;
+  }
+
+  .small-semibold {
+    @apply text-[14px] font-semibold leading-[140%] tracking-tighter;
+  }
+
+  .small-medium {
+    @apply text-[14px] font-medium leading-[140%];
+  }
+
+  .small-regular {
+    @apply text-[14px] font-normal leading-[140%];
+  }
+
+  .subtle-semibold {
+    @apply text-[12px] font-semibold leading-[140%];
+  }
+
+  .tiny-medium {
+    @apply text-[10px] font-medium leading-[140%];
+  }
+
+  /* UTILITIES */
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
+  }
+
+  .flex-start {
+    @apply flex justify-start items-center;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #09090a;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #5c5c7b;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #7878a3;
+  }
+
+  .common-container {
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+  }
+
+  .view-container {
+    @apply container mb-16 pb-5 w-screen overflow-x-hidden pt-5 md:mt-0;
+  }
+
+  .settings-container {
+    @apply container mb-14 w-screen max-w-screen-2xl overflow-x-hidden pt-5 md:mt-0;
+  }
+
+  .logo-wrapper {
+    @apply flex-center gap-1;
+  }
+
+  .logo-wrapper > img {
+    @apply rounded-full h-[96px] w-[96px] sm:h-[154px] sm:w-[154px];
+  }
+
+  .bgimage-wrapper > img {
+    @apply w-full h-full object-cover;
+  }
+}
+
+@layer components {
+  .animation-container {
+    @apply relative w-[--pomodoro-container-size] aspect-square overflow-hidden;
+  }
+
+  /* Study Animation Classes */
+  .pomodoro {
+    @apply w-[--pomodoro-size] aspect-square top-[calc((var(--pomodoro-container-size)-var(--pomodoro-size))/2)] left-[calc((var(--pomodoro-container-size)-var(--pomodoro-size))/2)] relative overflow-hidden flex justify-center items-center rounded-full animate-timer;
+    background-image: radial-gradient(
+        closest-side,
+        hsl(var(--background)) 98.5%,
+        transparent 98.8% 100%
+      ),
+      conic-gradient(
+        hsl(var(--background)) var(--pomodoro-gradient-value),
+        hsl(var(--primary)) 0
+      );
+  }
+
+  .pulse {
+    @apply relative bg-primary rounded-full h-[calc(var(--pomodoro-size)/2)] aspect-square;
+  }
+
+  .orbit {
+    @apply absolute rounded-full bg-primary w-[--orbit-size] aspect-square top-[50%] left-[50%] mt-[calc(2.5px-var(--orbit-size)/2-var(--pomodoro-size)/2)] translate-x-[-50%];
+  }
+
+  .rotating-container {
+    @apply w-[--pomodoro-container-size] aspect-square absolute z-10 top-0 left-0 animate-spin origin-center;
+  }
+
+  .pulse > span:nth-child(1) {
+    @apply absolute w-full aspect-square bg-inherit rounded-full animate-focus;
+  }
+
+  .pulse > span:nth-child(2) {
+    @apply absolute w-full aspect-square bg-inherit rounded-full animate-focus delay-1000;
+  }
+
+  /* Relax Animation Classes */
+  .relax-container {
+    @apply w-[--pomodoro-size] aspect-square top-[calc((var(--pomodoro-container-size)-var(--pomodoro-size))/2)] left-[calc((var(--pomodoro-container-size)-var(--pomodoro-size))/2)] relative overflow-hidden flex justify-center items-center rounded-full animate-timer;
+    background-image: radial-gradient(
+        closest-side,
+        hsl(var(--background)) 98.5%,
+        transparent 98.8% 100%
+      ),
+      conic-gradient(
+        hsl(var(--background)) var(--pomodoro-gradient-value),
+        hsl(var(--sunflower-yellow)) 0
+      );
+  }
+
+  .sunflower {
+    @apply relative rounded-full h-[calc(var(--pomodoro-size)/2)] aspect-square bg-[hsl(var(--sunflower-black))] z-10;
+  }
+
+  .petal {
+    @apply absolute rounded-t-[50%] rounded-b-[30%] h-[var(--petal-size)] w-[calc(var(--petal-size)/2.7)] bg-[hsl(var(--sunflower-yellow))] origin-center;
+    transition: transform 2s ease-out,
+      opacity 2s cubic-bezier(0, 0.085, 0.68, 0.53);
+  }
+
+  /* Pomodoro Form */
+  #pomodoro-form {
+    transition: all 500ms ease-in-out;
+  }
+
+  /* Calendar */
+
+  .completedAct {
+    color: rgb(209, 188, 30);
+  }
+
+  .inProgressAct {
+    color: rgb(34, 68, 234);
+  }
+
+  .lateAct {
+    color: rgb(210, 114, 36);
+  }
+}
+
+.rbc-time-slot {
+  color: #74a4c3;
+  z-index: 1;
+}
+
+.rbc-event,
+.rbc-background-event {
+  z-index: 2;
+  background-color: #5bc35b;
+  padding: 0px !important;
+  border: none !important;
+}
+
+.rbc-event-label {
+  display: none !important;
+}
+
+.rbc-events-container {
+  width: 100% !important;
+}
+
+.rbc-event.rbc-selected,
+.rbc-day-slot .rbc-selected.rbc-background-event {
+  background-color: #3b8a3e;
+}
+
+/* Views */
+.rbc-row-bg > .rbc-day-bg,
+.rbc-row > .rbc-header {
+  @apply border-b-border border-l-0;
+}
+
+.rbc-time-header-cell .rbc-today {
+  @apply bg-primary text-foreground;
+}
+
+.rbc-day-bg:not(.rbc-off-range-bg) {
+  @apply rounded-md;
+}
+
+.rbc-off-range-bg {
+  @apply bg-accent;
+}
+
+.rbc-month-view .rbc-day-bg.rbc-today {
+  @apply bg-rose-100 dark:bg-rose-200/50;
+}
+
+.rbc-date-cell.rbc-now.rbc-current {
+  @apply text-primary-foreground;
+}
+
+.rbc-month-view .rbc-day-bg.rbc-today:focus {
+  @apply border-2 border-primary;
+}
+
+.rbc-month-view,
+.rbc-time-view {
+  @apply rounded-[10px] md:rounded-[16px] overflow-hidden bg-background border-border;
+}
+
+.rbc-month-view {
+  @apply basis-full;
+}
+
+.rbc-show-more {
+  @apply text-primary bg-transparent;
+}
+
+.rbc-month-view > .rbc-today {
+  @apply bg-background !border-2 !border-primary rounded-md;
+}
+
+.rbc-date-cell {
+  @apply text-center;
+}
+
+.rbc-time-slot:not(.rbc-today .rbc-time-slot) {
+  @apply bg-accent;
+}
+
+/* Calendar Toolbar */
+.rbc-toolbar button,
+.rbc-toolbar button:focus {
+  @apply inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground hover:border-accent;
+}
+
+.rbc-toolbar button:active:hover {
+  @apply text-primary-foreground border-primary;
+}
+
+.rbc-toolbar button:active,
+.rbc-toolbar button.rbc-active,
+.rbc-toolbar button.rbc-active:hover,
+.rbc-toolbar button.rbc-active:focus {
+  @apply bg-primary text-primary-foreground border-primary hover:bg-primary/90 shadow-none;
+}
+
+.rbc-toolbar .rbc-toolbar-label {
+  @apply font-semibold uppercase;
+}
+
+.rbc-date-cell.rbc-now.rbc-current {
+  @apply text-black;
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating-clock {
+  animation: rotate 10s linear infinite;
+}
+
+.rbc-month-row {
+  min-height: 100px;
+}
+
+@media (max-width: 640px) {
+  .rbc-show-more {
+    font-size: 60%;
+  }
+}
