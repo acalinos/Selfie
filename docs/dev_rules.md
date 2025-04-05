@@ -1,6 +1,6 @@
 # Development Rules
 This should be the flow of work for our repository:
-1. Always pull the changes from the remote origin: git@github.com:braghira/SelfieApp.git.
+1. Always pull the changes from the remote origin: git@github.com:acalinos/Selfie.git.
 2. Checkout to a new git branch.
 3. Open the terminal and type ```nvm use 20```.
 4. Launch the start script with ```node start_script.js```, it could take some minutes to install and/or update dependencies
