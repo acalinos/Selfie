@@ -94,7 +94,7 @@ export default function LoginForm() {
           <p className="mt-4 text-center">
             {"Don't have an account yet?"}
             <NavLink to="/signup" className="text-primary ml-2 hover:underline">
-              Sign Up
+              Sign up
             </NavLink>
           </p>
         </form>

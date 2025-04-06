@@ -48,10 +48,10 @@ export default function SignupForm() {
   return (
     <Form {...form}>
       <div className="flex flex-col items-center w-full max-w-sm md:max-w-md">
-        <Logo className="mb-5" size="md" />
+        <Logo className="mb-5" size="lg" />
 
-        <h2 className="mb-2 text-center">Sign Up</h2>
-        <p className="mb-5">To use Selfie, Please enter your details</p>
+        <h1 className="my-2">Sign up</h1>
+        <p className="mb-5">To use Selfie, please enter your details</p>
 
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -116,7 +116,7 @@ export default function SignupForm() {
             name="birthday"
             render={() => (
               <FormItem>
-                <FormLabel>Date of Birth *</FormLabel>
+                <FormLabel>Date of birth *</FormLabel>
                 <FormControl>
                   {/* Adding Controller api to make sure the input is passed to the hook form correctly*/}
                   <Controller
@@ -145,7 +145,7 @@ export default function SignupForm() {
           )}
 
           <Button type="submit" className="mt-4">
-            {form.formState.isSubmitting ? <Loader /> : "Sign Up"}
+            {form.formState.isSubmitting ? <Loader /> : "Sign up"}
           </Button>
 
           <p className="text-center mt-4">
