@@ -35,7 +35,7 @@ export default function WelcomePage() {
               </Button>
               Or
               <Button asChild className="w-full">
-                <NavLink to="/signup">Signup</NavLink>
+                <NavLink to="/signup">Sign up</NavLink>
               </Button>
             </div>
           ) : (
@@ -49,8 +49,8 @@ export default function WelcomePage() {
       </div>
       <footer className="tiny-medium mb-1 text-center">
         Logo has been provided by{" "}
-        <NavLink to={"https://hotpot.ai/art-generator"}>
-          hotpot.ai/art-generator
+        <NavLink to={"https://www.looka.com"}>
+          looka.com
         </NavLink>
       </footer>
     </div>
