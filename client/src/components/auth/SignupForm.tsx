@@ -51,7 +51,7 @@ export default function SignupForm() {
         <Logo className="mb-5" size="lg" />
 
         <h1 className="my-2">Sign up</h1>
-        <p className="mb-5">To use Selfie, please enter your details</p>
+        <p className="mb-5">Please enter your details to start using Selfie</p>
 
         <form
           onSubmit={form.handleSubmit(onSubmit)}

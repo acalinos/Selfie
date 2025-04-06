@@ -1,4 +1,4 @@
-import logo from "../assets/trace.svg";
+import logo from "../assets/logo1.png";
 import { cn } from "../lib/utils";
 
 interface LogoProps {
@@ -30,12 +30,12 @@ export default function Logo({ className, size }: LogoProps) {
         className="rounded-full"
         style={{ height: `${sizes[i]}px` }}
       />
-      <div
+      {/* <div
         className="font-logo italic"
         style={{ fontSize: `${sizes[i] / 2.38}px` }}
       >
         Selfie
-      </div>
+      </div> */}
     </div>
   );
 }
