@@ -259,9 +259,11 @@ export default function Pomodoro() {
   return (
     <div className="view-container flex justify-center flex-col gap-5 md:flex-row sm:items-center mb-10">
       <div className="flex-center justify-start flex-col gap-5 max-w-[530px]">
-        <h2>
-          <span className="text-primary">Pomodoro</span>
-        </h2>
+        <div className="w-full flex justify-center mt-4 mb-6">
+          <h1 className="my-2">
+            <span className="text-primary">Pomodoro</span>
+          </h1>
+        </div>
         <p className="leading-6">
           Organize your pomodoro session with:
         </p>

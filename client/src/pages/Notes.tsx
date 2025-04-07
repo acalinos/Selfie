@@ -89,7 +89,13 @@ function HomeNote() {
 
   return (
     <div className="view-container p-4">
-      <div className="flex justify-start items-center space-x-2 mb-4">
+      <div className="w-full flex justify-center mt-4 mb-6">
+        <h1 className="my-2">
+          <span className="text-primary">Notes</span>
+        </h1>
+      </div>
+
+      <div className="flex-center justify-start items-center space-x-2 mb-4">
         <Button
           onClick={handleCreateNewNote}
           aria-label="Crea una nuova nota"
@@ -149,8 +155,8 @@ function HomeNote() {
           onClick={toggleShowOwnNotes}
           aria-label={
             showOnlyOwnNotes
-              ? "Mostra tutte le note"
-              : "Mostra solo le tue note"
+              ? "Show all notes"
+              : "Show my notes"
           }
           className="p-2 sm:p-4"
         >

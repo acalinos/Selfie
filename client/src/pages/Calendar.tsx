@@ -407,6 +407,11 @@ export default function CalendarPage() {
 
   return (
     <div className="view-container">
+      <div className="w-full flex justify-center mt-4 mb-6">
+        <h1 className="my-2">
+          <span className="text-primary">Calendar</span>
+        </h1>
+      </div>
       <div id="event-details-container">
         {selectedEvent && (
           <EventDetails
