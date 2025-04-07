@@ -98,50 +98,50 @@ function HomeNote() {
           <span className="block sm:hidden" aria-hidden="true">
             <Plus className="w-5 h-5" />
           </span>
-          <span className="hidden sm:block">Nuova Nota</span>
+          <span className="hidden sm:block">New note</span>
         </Button>
         <Button
           onClick={handleDeleteAllNotes}
-          aria-label="Elimina tutte le note"
+          aria-label="Delete all notes"
           className="p-2 sm:p-4"
         >
           <span className="block sm:hidden" aria-hidden="true">
             <Trash className="w-5 h-5" />
           </span>
-          <span className="hidden sm:block">Elimina Tutte le Note</span>
+          <span className="hidden sm:block">Delete all notes</span>
         </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
               aria-haspopup="true"
               aria-expanded="false"
-              aria-label="Ordina per"
+              aria-label="Sort notes"
               className="p-2 sm:p-4"
             >
               <span className="block sm:hidden" aria-hidden="true">
                 <SortAsc className="w-5 h-5" />
               </span>
-              <span className="hidden sm:block">Ordina per</span>
+              <span className="hidden sm:block">Sort notes by</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent>
             <DropdownMenuItem
               onClick={() => handleSortChange("title")}
-              aria-label="Ordina per titolo"
+              aria-label="Sort by title"
             >
-              Titolo
+              Title
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => handleSortChange("date")}
-              aria-label="Ordina per data"
+              aria-label="Sort by date"
             >
-              Data
+              Date
             </DropdownMenuItem>
             <DropdownMenuItem
               onClick={() => handleSortChange("length")}
-              aria-label="Ordina per lunghezza"
+              aria-label="Sort by length"
             >
-              Lunghezza
+              Length
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -159,14 +159,14 @@ function HomeNote() {
               <span className="block sm:hidden" aria-hidden="true">
                 <EyeOff className="w-5 h-5" />
               </span>
-              <span className="hidden sm:block">Mostra tutte le note</span>
+              <span className="hidden sm:block">Show all notes</span>
             </>
           ) : (
             <>
               <span className="block sm:hidden" aria-hidden="true">
                 <Eye className="w-5 h-5" />
               </span>
-              <span className="hidden sm:block">Mostra solo le tue note</span>
+              <span className="hidden sm:block">Show my notes</span>
             </>
           )}
         </Button>
@@ -188,7 +188,7 @@ function HomeNote() {
             />
           ))
         ) : (
-          <p aria-live="polite">Nessuna nota disponibile.</p>
+          <p aria-live="polite">There are no notes. Create a new one!</p>
         )}
       </div>
     </div>

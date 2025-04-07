@@ -245,7 +245,7 @@ export default function Pomodoro() {
 
     const payload: NotificationPayload = {
       title: "Pomodoro Timer",
-      body: "Pomodoro session finished! Wheew",
+      body: "Pomodoro session finished!",
       url: `${window.origin}/pomodoro`,
     };
 
@@ -258,27 +258,25 @@ export default function Pomodoro() {
 
   return (
     <div className="view-container flex justify-center flex-col gap-5 md:flex-row sm:items-center mb-10">
-      <div className="flex justify-start flex-col gap-5 max-w-[530px]">
+      <div className="flex-center justify-start flex-col gap-5 max-w-[530px]">
         <h2>
-          Welcome to the <span className="text-primary">Pomodoro</span> View!
+          <span className="text-primary">Pomodoro</span>
         </h2>
         <p className="leading-6">
-          Here you can set your pomodoro session in 2 ways:
+          Organize your pomodoro session with:
         </p>
         <ul className="list-disc small-regular sm:base-regular">
           <li className="leading-6">
-            <b>Timers</b>: Set the study and pause timer exactly how you want,
-            including the number of study/pause cycles;
+            <b>timers</b>: set study timer, pause timer and number of cycles;
           </li>
           <li className="leading-6">
-            <b>Session</b>: Insert a total session time and choose the option
-            that best fits your needs.
+            <b>session</b>: set session time and choose the best option for your needs.
           </li>
         </ul>
       </div>
 
       <div className="flex-center flex-col gap-5 z-10">
-        <h2>Cycles: {timer.cycles}</h2>
+        <h2>{timer.cycles} cycles</h2>
 
         {timer.isStudyCycle ? (
           <StudyAnimation
@@ -373,7 +371,7 @@ export default function Pomodoro() {
             {/* Show only when we are not in the last cycle study timer */}
             {timer.cycles > 0 && timer.study.started && (
               <Tooltip>
-                <TooltipContent>Skip This Cycle</TooltipContent>
+                <TooltipContent>Skip this cycle</TooltipContent>
                 <TooltipTrigger asChild>
                   <Button
                     onClick={() => {
