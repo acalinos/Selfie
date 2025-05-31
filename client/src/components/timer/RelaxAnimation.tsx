@@ -138,107 +138,25 @@ export default function RelaxAnimation({
           animationPlayState: timer.relax.started ? "running" : "paused",
         }}
       >
-        <div className="sunflower">
-          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] timer-medium text-yellow-50">
+        <div className="pulseRelax">
+          <span
+            id="pulse1"
+            style={{
+              animationIterationCount: repetitions.current,
+              animationPlayState: timer.relax.started ? "running" : "paused",
+            }}
+          ></span>
+          <span
+            id="pulse2"
+            style={{
+              animationIterationCount: repetitions.current,
+              animationPlayState: timer.relax.started ? "running" : "paused",
+            }}
+          ></span>
+          <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] timer-medium text-red-50">
             {msToTime(timer.relax.value)}
           </div>
         </div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
-        <div
-          className="petal"
-          style={{
-            transform: `rotate(calc(22.5deg * ${i++})) translate(0px, var(--petal-transform))`,
-          }}
-        ></div>
       </div>
     </div>
   );

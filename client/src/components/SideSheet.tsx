@@ -22,9 +22,10 @@ export default function SideSheet() {
 
   return (
     <Sheet>
-      <SheetTrigger>
-        <ProfilePhoto />
+      <SheetTrigger className="rounded-full overflow-hidden border-2 border-primary w-20 h-20">
+        <ProfilePhoto className="w-full h-full object-cover" />
       </SheetTrigger>
+
 
       <SheetContent className="w-60 sm:w-[20rem]" side={"right"}>
         <SheetHeader className="mb-5">

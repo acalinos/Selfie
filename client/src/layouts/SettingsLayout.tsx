@@ -2,6 +2,8 @@ import { NavLink, Outlet } from "react-router-dom";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+//TODO: cambiare colori in profile
+
 export default function SettingsLayout() {
   return (
     <div className="settings-container">
@@ -42,7 +44,7 @@ export default function SettingsLayout() {
               to="takeaselfie"
               className={({ isActive }) =>
                 cn(
-                  buttonVariants({ variant: "ghost" }),
+                  buttonVariants({ variant: "profile" }),
                   isActive
                     ? "bg-muted hover:bg-muted"
                     : "hover:bg-transparent hover:underline",

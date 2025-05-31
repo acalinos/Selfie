@@ -149,7 +149,7 @@ export default function NoteCard({
           )}
           <CardTitle
             id={`note-title-${id}`}
-            className="text-primary mb-1 text-ellipsis overflow-hidden whitespace-normal break-words"
+            className="text-secondary mb-1 text-ellipsis overflow-hidden whitespace-normal break-words"
             style={{ lineHeight: "1.2", paddingBottom: "4px" }}
           >
             {title}

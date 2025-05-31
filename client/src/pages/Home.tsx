@@ -228,9 +228,9 @@ export default function Home() {
         <SendMessage />
       </div>
 
-      <div className="view-container grid grid-cols-1 md:grid-rows-2 md:grid-cols-2 gap-5">
-        <div className="row-span-1">
-          <Card className="bg-background h-full">
+      <div className="view-container grid grid-cols-1 md:grid-rows-[auto_1fr] md:grid-cols-3 gap-5">
+        <div className="row-span-1 col-span-3 bg-red">
+          <Card className="bg-popover shadow-lg h-full">
             <CardHeader>
               <CardTitle className="flex w-full justify-between">
                 Pomodoro
@@ -257,19 +257,20 @@ export default function Home() {
                 <div className="flex flex-col justify-center items-center gap-5 md:flex-row">
                   <div className="flex flex-col justify-center items-center gap-2">
                     <div className="bg-primary h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-red-50">
-                      {pomodoroEvent?.expectedPomodoro?.study &&
-                        pomodoroEvent?.expectedPomodoro?.study / 60000}
-                      m
+                      {(pomodoroEvent?.expectedPomodoro?.study &&
+                        Math.floor(pomodoroEvent.expectedPomodoro.study / 60000 * 100) / 100)}
+
+                      min
                     </div>
                     <Badge>Study</Badge>
                   </div>
                   <div className="flex flex-col justify-center items-center gap-2">
-                    <div className="bg-yellow-600 h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-yellow-50">
-                      {pomodoroEvent?.expectedPomodoro?.relax &&
-                        pomodoroEvent?.expectedPomodoro?.relax / 60000}
-                      m
+                    <div className="bg-[#B982A0] h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-yellow-50">
+                      {(pomodoroEvent?.expectedPomodoro?.relax &&
+                        Math.floor(pomodoroEvent.expectedPomodoro.relax / 60000 * 100) / 100)}
+                      min
                     </div>
-                    <Badge className="bg-yellow-600">Relax</Badge>
+                    <Badge className="bg-[#B982A0]">Relax</Badge>
                   </div>
                 </div>
                 <Separator className="my-4" />
@@ -290,17 +291,19 @@ export default function Home() {
                         {pomodoroEvent?.expectedPomodoro?.cycles &&
                           pomodoroEvent?.currPomodoro?.cycles &&
                           pomodoroEvent?.expectedPomodoro?.cycles -
-                            pomodoroEvent?.currPomodoro?.cycles}
+                          pomodoroEvent?.currPomodoro?.cycles}
                       </TableCell>
                       <TableCell>
                         {pomodoroEvent?.expectedPomodoro?.study &&
                           pomodoroEvent?.expectedPomodoro?.relax &&
                           pomodoroEvent?.expectedPomodoro?.cycles &&
-                          ((pomodoroEvent?.expectedPomodoro?.study +
-                            pomodoroEvent?.expectedPomodoro?.relax) *
-                            pomodoroEvent?.expectedPomodoro?.cycles) /
-                            60000}{" "}
-                        m
+                          Math.floor(
+                            ((pomodoroEvent.expectedPomodoro.study +
+                              pomodoroEvent.expectedPomodoro.relax) *
+                              pomodoroEvent.expectedPomodoro.cycles /
+                              60000) * 100
+                          ) / 100}{" "}
+                        min
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -313,11 +316,14 @@ export default function Home() {
                         {pomodoroEvent?.expectedPomodoro?.study &&
                           pomodoroEvent?.expectedPomodoro?.relax &&
                           pomodoroEvent?.expectedPomodoro?.cycles &&
-                          ((pomodoroEvent?.expectedPomodoro?.study +
-                            pomodoroEvent?.expectedPomodoro?.relax) *
-                            pomodoroEvent?.expectedPomodoro?.cycles) /
-                            60000}{" "}
-                        m
+                          Math.floor(
+                            ((pomodoroEvent.expectedPomodoro.study +
+                              pomodoroEvent.expectedPomodoro.relax) *
+                              pomodoroEvent.expectedPomodoro.cycles /
+                              60000) * 100
+                          ) / 100}{" "}
+                        min
+
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -336,7 +342,25 @@ export default function Home() {
         </div>
 
         <div className="row-span-1 w-full h-full">
-          <Card className="bg-background w-full h-full">
+          <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
+            <CardHeader>
+              <CardTitle>Events</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <DataTable
+                data={events}
+                columns={eventColumns}
+                filterTitleID="title"
+                filterColumnID="recurrencePattern"
+                filterName="Recurrence"
+                filterOptions={frequencies}
+              ></DataTable>
+            </CardContent>
+          </Card>
+        </div>
+
+                <div className="row-span-1 w-full h-full">
+          <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
               <CardTitle>Notes</CardTitle>
             </CardHeader>
@@ -366,26 +390,8 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="row-span-1">
-          <Card className="bg-background">
-            <CardHeader>
-              <CardTitle>Events</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <DataTable
-                data={events}
-                columns={eventColumns}
-                filterTitleID="title"
-                filterColumnID="recurrencePattern"
-                filterName="Recurrence"
-                filterOptions={frequencies}
-              ></DataTable>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="row-span-1">
-          <Card className="bg-background">
+        <div className="row-span-1 w-full h-full">
+          <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
               <CardTitle>Activities</CardTitle>
             </CardHeader>

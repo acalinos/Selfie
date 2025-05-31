@@ -44,7 +44,8 @@
     --radius: 0.5rem;
     /* Other colors */
     --sunflower-black: 47.9 95.8% 13.1%;
-    --sunflower-yellow: 47.9 95.8% 53.1%;
+    --sunflower-yellow: 330 100% 80%;
+;
   }
 
   .dark {
@@ -273,11 +274,11 @@
     @apply relative rounded-full h-[calc(var(--pomodoro-size)/2)] aspect-square bg-[hsl(var(--sunflower-black))] z-10;
   }
 
-  .petal {
+  /* .petal {
     @apply absolute rounded-t-[50%] rounded-b-[30%] h-[var(--petal-size)] w-[calc(var(--petal-size)/2.7)] bg-[hsl(var(--sunflower-yellow))] origin-center;
     transition: transform 2s ease-out,
       opacity 2s cubic-bezier(0, 0.085, 0.68, 0.53);
-  }
+  } */
 
   /* Pomodoro Form */
   #pomodoro-form {

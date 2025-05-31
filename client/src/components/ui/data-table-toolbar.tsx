@@ -29,8 +29,8 @@ export function DataTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="flex flex-1 flex-col sm:flex-row items-center space-y-2 sm:space-x-2 sm:space-y-0">
+    <div className="w-full overflow-x-auto scrollbar-hide">
+      <div className="flex w-max items-center gap-2 px-1 sm:px-0">
         <Input
           placeholder="Filter rows..."
           value={(table.getColumn(titleID)?.getFilterValue() as string) ?? ""}
@@ -39,6 +39,7 @@ export function DataTableToolbar<TData>({
           }
           className="h-8 w-[150px] lg:w-[250px]"
         />
+        <div>
         {table.getColumn(columnId) && (
           <DataTableFacetedFilter
             column={table.getColumn(columnId)}
@@ -58,6 +59,7 @@ export function DataTableToolbar<TData>({
         )}
       </div>
       <DataTableViewOptions table={table} />
+      </div>
     </div>
   );
 }

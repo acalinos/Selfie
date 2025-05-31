@@ -21,52 +21,54 @@
   /* Utilities */
   --navbar-h: 60px;
   /* Theme Variables */
-  --background: 0 0% 100%; /* Bianco */
+  --background: 0, 0%, 91%; /* Bianco */
   --foreground: 0 0% 0%; /* Nero */
-  --card: 174 53% 68%; /* Azzurro Tiffany */
+  --card: 173 35% 59%; /* Azzurro Tiffany */
   --card-foreground: 0 0% 0%; /* Nero */
   --popover: 0 0% 100%; /* Bianco */
   --popover-foreground: 0 0% 0%; /* Nero */
-  --primary: 174 53% 68%; /* Azzurro Tiffany */
+  --primary: 173 35% 59%; /* Azzurro Tiffany */
   --primary-foreground: 0 0% 0%; /* Nero */
   --secondary: 0 0% 100%; /* Bianco */
   --secondary-foreground: 0 0% 0%; /* Nero */
   --muted: 0 0% 95%; /* Grigio chiaro */
   --muted-foreground: 0 0% 40%; /* Grigio scuro */
-  --accent: 174 53% 68%; /* Azzurro Tiffany */
+  --accent: 173 35% 59%; /* Azzurro Tiffany */
   --accent-foreground: 0 0% 0%; /* Nero */
   --destructive: 0 100% 50%; /* Rosso */
   --destructive-foreground: 0 0% 100%; /* Bianco */
   --border: 0 0% 80%; /* Grigio medio */
   --input: 0 0% 80%; /* Grigio medio */
-  --ring: 174 53% 68%; /* Azzurro Tiffany */
+  --ring: 173 35% 59%; /* Azzurro Tiffany */
   --radius: 0.5rem;
   /* Other colors */
   --sunflower-black: 0 0% 0%; /* Nero */
-  --sunflower-yellow: 47.9 95.8% 53.1%; /* Giallo girasole */
+  --sunflower-yellow: 330 100% 80%; /* Giallo girasole */
 }
 
 .dark {
-  --background: 0 0% 0%; /* Nero */
+  --background: 0, 0%, 9%; /* Nero */
   --foreground: 0 0% 100%; /* Bianco */
-  --card: 174 53% 68%; /* Azzurro Tiffany */
+  --card: 173 35% 59%; /* Azzurro Tiffany */
   --card-foreground: 0 0% 100%; /* Bianco */
   --popover: 0 0% 0%; /* Nero */
   --popover-foreground: 0 0% 100%; /* Bianco */
-  --primary: 174 53% 68%; /* Azzurro Tiffany */
+  --primary: 173 35% 59%; /* Azzurro Tiffany */
   --primary-foreground: 0 0% 0%; /* Nero */
   --secondary: 0 0% 20%; /* Grigio molto scuro */
   --secondary-foreground: 0 0% 100%; /* Bianco */
   --muted: 0 0% 15%; /* Grigio molto scuro */
   --muted-foreground: 0 0% 65%; /* Grigio medio */
-  --accent: 174 53% 68%; /* Azzurro Tiffany */
+  --accent: 173 35% 59%; /* Azzurro Tiffany */
   --accent-foreground: 0 0% 0%; /* Nero */
   --destructive: 0 100% 30%; /* Rosso scuro */
   --destructive-foreground: 0 0% 100%; /* Bianco */
   --border: 0 0% 20%; /* Grigio molto scuro */
   --input: 0 0% 20%; /* Grigio molto scuro */
-  --ring: 174 53% 68%; /* Azzurro Tiffany */
+  --ring: 173 35% 59%; /* Azzurro Tiffany */
 }
+
+/* TODO: cambiare colore titolo note */
 
 @screen md {
   :root {
@@ -237,6 +239,10 @@
     @apply relative bg-primary rounded-full h-[calc(var(--pomodoro-size)/2)] aspect-square;
   }
 
+  .pulseRelax {
+    @apply relative bg-[#B982A0] rounded-full h-[calc(var(--pomodoro-size)/2)] aspect-square;
+  }
+
   .orbit {
     @apply absolute rounded-full bg-primary w-[--orbit-size] aspect-square top-[50%] left-[50%] mt-[calc(2.5px-var(--orbit-size)/2-var(--pomodoro-size)/2)] translate-x-[-50%];
   }
@@ -251,6 +257,22 @@
 
   .pulse > span:nth-child(2) {
     @apply absolute w-full aspect-square bg-inherit rounded-full animate-focus delay-1000;
+  }
+
+  .pulseRelax > span:nth-child(1) {
+    @apply absolute w-full aspect-square bg-inherit rounded-full animate-focus;
+  }
+
+  .pulseRelax > span:nth-child(2) {
+    @apply absolute w-full aspect-square bg-inherit rounded-full animate-focus delay-1000;
+  }
+
+  .scrollbar-hide {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
   }
 
   /* Relax Animation Classes */
