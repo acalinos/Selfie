@@ -148,12 +148,6 @@ export default function SignupForm() {
             {form.formState.isSubmitting ? <Loader /> : "Sign up"}
           </Button>
 
-          <p className="text-center mt-4">
-            Already have an account?
-            <NavLink to="/login" className="text-primary ml-2 hover:underline">
-              Log in
-            </NavLink>
-          </p>
         </form>
       </div>
     </Form>

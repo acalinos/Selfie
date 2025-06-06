@@ -228,8 +228,10 @@ export default function Home() {
         <SendMessage />
       </div>
 
-      <div className="view-container grid grid-cols-1 md:grid-rows-[auto_1fr] md:grid-cols-3 gap-5">
-        <div className="row-span-1 col-span-3 bg-red">
+      <div className="view-container grid grid-cols-1 md:grid-cols-3 md:grid-rows-[auto_1fr] gap-5">
+
+        {/* Pomodoro - su mobile occupa 1 colonna, su desktop tutte e 3 */}
+        <div className="col-span-1 md:col-span-3">
           <Card className="bg-popover shadow-lg h-full">
             <CardHeader>
               <CardTitle className="flex w-full justify-between">
@@ -243,44 +245,39 @@ export default function Home() {
                   <Label htmlFor="pomodoro-preview">Report View</Label>
                 </div>
               </CardTitle>
-
               <CardDescription>Last pomodoro Session</CardDescription>
             </CardHeader>
 
             {!pomodoroSwitch && (
-              <RadialPomodoroChart
-                progress={pomodoroProgress}
-              ></RadialPomodoroChart>
+              <RadialPomodoroChart progress={pomodoroProgress} />
             )}
+
             {pomodoroSwitch && (
               <CardContent>
                 <div className="flex flex-col justify-center items-center gap-5 md:flex-row">
                   <div className="flex flex-col justify-center items-center gap-2">
                     <div className="bg-primary h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-red-50">
                       {(pomodoroEvent?.expectedPomodoro?.study &&
-                        Math.floor(pomodoroEvent.expectedPomodoro.study / 60000 * 100) / 100)}
-
-                      min
+                        Math.floor(pomodoroEvent.expectedPomodoro.study / 60000 * 100) / 100)} min
                     </div>
                     <Badge>Study</Badge>
                   </div>
                   <div className="flex flex-col justify-center items-center gap-2">
                     <div className="bg-[#B982A0] h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-yellow-50">
                       {(pomodoroEvent?.expectedPomodoro?.relax &&
-                        Math.floor(pomodoroEvent.expectedPomodoro.relax / 60000 * 100) / 100)}
-                      min
+                        Math.floor(pomodoroEvent.expectedPomodoro.relax / 60000 * 100) / 100)} min
                     </div>
                     <Badge className="bg-[#B982A0]">Relax</Badge>
                   </div>
                 </div>
+
                 <Separator className="my-4" />
+
                 <Table>
                   <TableCaption>Pomodoro Stats</TableCaption>
                   <TableHeader>
                     <TableRow>
-                      <TableHead colSpan={3} className="w-[100px] text-right">
-                        Cycles
-                      </TableHead>
+                      <TableHead colSpan={3} className="w-[100px] text-right">Cycles</TableHead>
                       <TableHead colSpan={2}>Session Length</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -290,8 +287,8 @@ export default function Home() {
                       <TableCell colSpan={2} className="font-medium text-right">
                         {pomodoroEvent?.expectedPomodoro?.cycles &&
                           pomodoroEvent?.currPomodoro?.cycles &&
-                          pomodoroEvent?.expectedPomodoro?.cycles -
-                          pomodoroEvent?.currPomodoro?.cycles}
+                          pomodoroEvent.expectedPomodoro.cycles -
+                          pomodoroEvent.currPomodoro.cycles}
                       </TableCell>
                       <TableCell>
                         {pomodoroEvent?.expectedPomodoro?.study &&
@@ -302,15 +299,13 @@ export default function Home() {
                               pomodoroEvent.expectedPomodoro.relax) *
                               pomodoroEvent.expectedPomodoro.cycles /
                               60000) * 100
-                          ) / 100}{" "}
-                        min
+                          ) / 100} min
                       </TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell>Expected Session</TableCell>
                       <TableCell colSpan={2} className="font-medium text-right">
-                        {pomodoroEvent?.expectedPomodoro?.cycles &&
-                          pomodoroEvent?.expectedPomodoro?.cycles}
+                        {pomodoroEvent?.expectedPomodoro?.cycles}
                       </TableCell>
                       <TableCell>
                         {pomodoroEvent?.expectedPomodoro?.study &&
@@ -321,9 +316,7 @@ export default function Home() {
                               pomodoroEvent.expectedPomodoro.relax) *
                               pomodoroEvent.expectedPomodoro.cycles /
                               60000) * 100
-                          ) / 100}{" "}
-                        min
-
+                          ) / 100} min
                       </TableCell>
                     </TableRow>
                   </TableBody>
@@ -341,7 +334,8 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="row-span-1 w-full h-full">
+        {/* Events */}
+        <div className="col-span-1">
           <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
               <CardTitle>Events</CardTitle>
@@ -354,12 +348,13 @@ export default function Home() {
                 filterColumnID="recurrencePattern"
                 filterName="Recurrence"
                 filterOptions={frequencies}
-              ></DataTable>
+              />
             </CardContent>
           </Card>
         </div>
 
-                <div className="row-span-1 w-full h-full">
+        {/* Notes */}
+        <div className="col-span-1">
           <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
               <CardTitle>Notes</CardTitle>
@@ -390,7 +385,8 @@ export default function Home() {
           </Card>
         </div>
 
-        <div className="row-span-1 w-full h-full">
+        {/* Activities */}
+        <div className="col-span-1">
           <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
               <CardTitle>Activities</CardTitle>
@@ -401,6 +397,7 @@ export default function Home() {
           </Card>
         </div>
       </div>
+
     </>
   );
 }

@@ -79,7 +79,7 @@ function DashboardLayout() {
       <header>
         <Navbar />
       </header>
-      <main>
+      <main className="md:pl-48">
         <Outlet />
       </main>
     </>
