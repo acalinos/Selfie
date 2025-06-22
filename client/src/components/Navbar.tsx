@@ -58,10 +58,9 @@ export default function Navbar() {
 
             <NavLink
               to="/notes"
-              className={({ isActive }) =>
-                `${isActive
-                  ? buttonVariants({ variant: "default" })
-                  : buttonVariants({ variant: "ghost" })} justify-start flex gap-2`
+              className={
+                ({ isActive }) =>
+                `${isActive ? buttonVariants({ variant: "default" }) : buttonVariants({ variant: "ghost" })} justify-start flex gap-2`
               }
             >
               <NotebookIcon className="w-5 h-5" />

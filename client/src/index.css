@@ -28,13 +28,13 @@
   --popover: 0 0% 100%; /* Bianco */
   --popover-foreground: 0 0% 0%; /* Nero */
   --primary: 173 35% 59%; /* Azzurro Tiffany */
-  --primary-foreground: 0 0% 0%; /* Nero */
+  --primary-foreground: 0 0% 100%; /* Nero */
   --secondary: 0 0% 100%; /* Bianco */
   --secondary-foreground: 0 0% 0%; /* Nero */
   --muted: 0 0% 95%; /* Grigio chiaro */
   --muted-foreground: 0 0% 40%; /* Grigio scuro */
   --accent: 173 35% 59%; /* Azzurro Tiffany */
-  --accent-foreground: 0 0% 0%; /* Nero */
+  --accent-foreground: 0 0% 100%; /* Nero */
   --destructive: 0 100% 50%; /* Rosso */
   --destructive-foreground: 0 0% 100%; /* Bianco */
   --border: 0 0% 80%; /* Grigio medio */

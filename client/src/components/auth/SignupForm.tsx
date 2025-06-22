@@ -17,7 +17,7 @@ import { UserType, UserSchema } from "@/lib/utils";
 // images
 import Loader from "@/components/Loader";
 import Logo from "@/components/Logo";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { parseISO } from "date-fns";
 
 export default function SignupForm() {
@@ -50,7 +50,7 @@ export default function SignupForm() {
       <div className="flex flex-col items-center w-full max-w-sm md:max-w-md">
         <Logo className="mb-5" size="lg" />
 
-        <h1 className="my-2">Sign up</h1>
+        <h2 className="my-2">Sign up</h2>
         <p className="mb-5">Please enter your details to start using Selfie</p>
 
         <form

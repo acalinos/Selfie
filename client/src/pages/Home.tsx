@@ -9,14 +9,12 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -47,10 +45,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Separator } from "@/components/ui/separator";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { RadialPomodoroChart } from "@/components/dashboard/RadialPomodoroChart";
 import NoteCard from "@/components/editor/notecard";
 import SendMessage from "@/components/dashboard/SendMessage";
@@ -63,7 +59,6 @@ export default function Home() {
   const { notes } = useNoteContext();
   const { currentDate } = useTimeMachineContext();
   const [pomodoroEvent, setPomodoroEvent] = useState<EventType | null>(null);
-  const [pomodoroSwitch, setPomodoroSwitch] = useState(false);
   const [pomodoroProgress, setPomodoroProgress] = useState(0);
   const navigate = useNavigate();
 
@@ -228,109 +223,105 @@ export default function Home() {
         <SendMessage />
       </div>
 
-      <div className="view-container grid grid-cols-1 md:grid-cols-3 md:grid-rows-[auto_1fr] gap-5">
+      <div className="view-container grid grid-cols-1 md:grid-cols-3 md:grid-rows-[auto_1fr] gap-5 min-w-fit">
 
         {/* Pomodoro - su mobile occupa 1 colonna, su desktop tutte e 3 */}
         <div className="col-span-1 md:col-span-3">
           <Card className="bg-popover shadow-lg h-full">
             <CardHeader>
-              <CardTitle className="flex w-full justify-between">
-                Pomodoro
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    id="pomodoro-preview"
-                    checked={pomodoroSwitch}
-                    onCheckedChange={() => setPomodoroSwitch(!pomodoroSwitch)}
-                  />
-                  <Label htmlFor="pomodoro-preview">Report View</Label>
-                </div>
+              <CardTitle className="flex w-full justify-between justify-center my-6 text-3xl">
+                <NavLink to="/pomodoro">
+                  Pomodoro
+                </NavLink>
               </CardTitle>
-              <CardDescription>Last pomodoro Session</CardDescription>
             </CardHeader>
+            <div className="grid grid-cols-12 gap-4 ">
+              <div className="col-span-6">
+                <CardTitle className="text-center my-6">Last pomodoro session</CardTitle>
+                <RadialPomodoroChart progress={pomodoroProgress} />
+              </div>
+              <div className="col-span-6">
+                <CardTitle className="text-center my-6">Pomodoro stats</CardTitle>
 
-            {!pomodoroSwitch && (
-              <RadialPomodoroChart progress={pomodoroProgress} />
-            )}
-
-            {pomodoroSwitch && (
-              <CardContent>
-                <div className="flex flex-col justify-center items-center gap-5 md:flex-row">
-                  <div className="flex flex-col justify-center items-center gap-2">
-                    <div className="bg-primary h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-red-50">
-                      {(pomodoroEvent?.expectedPomodoro?.study &&
-                        Math.floor(pomodoroEvent.expectedPomodoro.study / 60000 * 100) / 100)} min
+                <CardContent>
+                  <div className="flex flex-col justify-center items-center gap-5 md:flex-row">
+                    <div className="flex flex-col justify-center items-center gap-2">
+                      <div className="bg-primary h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-red-50">
+                        {(pomodoroEvent?.expectedPomodoro?.study &&
+                          Math.floor(pomodoroEvent.expectedPomodoro.study / 60000 * 100) / 100)} min
+                      </div>
+                      <Badge>Study</Badge>
                     </div>
-                    <Badge>Study</Badge>
-                  </div>
-                  <div className="flex flex-col justify-center items-center gap-2">
-                    <div className="bg-[#B982A0] h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-yellow-50">
-                      {(pomodoroEvent?.expectedPomodoro?.relax &&
-                        Math.floor(pomodoroEvent.expectedPomodoro.relax / 60000 * 100) / 100)} min
+                    <div className="flex flex-col justify-center items-center gap-2">
+                      <div className="bg-[#B982A0] h-[200px] w-[200px] md:h-[150px] md:w-[150px] rounded-full flex-center font-bold text-yellow-50">
+                        {(pomodoroEvent?.expectedPomodoro?.relax &&
+                          Math.floor(pomodoroEvent.expectedPomodoro.relax / 60000 * 100) / 100)} min
+                      </div>
+                      <Badge className="bg-[#B982A0]">Relax</Badge>
                     </div>
-                    <Badge className="bg-[#B982A0]">Relax</Badge>
                   </div>
-                </div>
 
-                <Separator className="my-4" />
+                  <Separator className="my-4" />
 
-                <Table>
-                  <TableCaption>Pomodoro Stats</TableCaption>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead colSpan={3} className="w-[100px] text-right">Cycles</TableHead>
-                      <TableHead colSpan={2}>Session Length</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow>
-                      <TableCell>Last Session</TableCell>
-                      <TableCell colSpan={2} className="font-medium text-right">
-                        {pomodoroEvent?.expectedPomodoro?.cycles &&
-                          pomodoroEvent?.currPomodoro?.cycles &&
-                          pomodoroEvent.expectedPomodoro.cycles -
-                          pomodoroEvent.currPomodoro.cycles}
-                      </TableCell>
-                      <TableCell>
-                        {pomodoroEvent?.expectedPomodoro?.study &&
-                          pomodoroEvent?.expectedPomodoro?.relax &&
-                          pomodoroEvent?.expectedPomodoro?.cycles &&
-                          Math.floor(
-                            ((pomodoroEvent.expectedPomodoro.study +
-                              pomodoroEvent.expectedPomodoro.relax) *
-                              pomodoroEvent.expectedPomodoro.cycles /
-                              60000) * 100
-                          ) / 100} min
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell>Expected Session</TableCell>
-                      <TableCell colSpan={2} className="font-medium text-right">
-                        {pomodoroEvent?.expectedPomodoro?.cycles}
-                      </TableCell>
-                      <TableCell>
-                        {pomodoroEvent?.expectedPomodoro?.study &&
-                          pomodoroEvent?.expectedPomodoro?.relax &&
-                          pomodoroEvent?.expectedPomodoro?.cycles &&
-                          Math.floor(
-                            ((pomodoroEvent.expectedPomodoro.study +
-                              pomodoroEvent.expectedPomodoro.relax) *
-                              pomodoroEvent.expectedPomodoro.cycles /
-                              60000) * 100
-                          ) / 100} min
-                      </TableCell>
-                    </TableRow>
-                  </TableBody>
-                  <TableFooter>
-                    <TableRow>
-                      <TableCell colSpan={1}>Progress Made</TableCell>
-                      <TableCell colSpan={4} className="text-right">
-                        {pomodoroProgress * 100}%
-                      </TableCell>
-                    </TableRow>
-                  </TableFooter>
-                </Table>
-              </CardContent>
-            )}
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead colSpan={3} className="w-[100px] text-right">Cycles</TableHead>
+                        <TableHead colSpan={2}>Session Length</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell>Last Session</TableCell>
+                        <TableCell colSpan={2} className="font-medium text-right">
+                          {pomodoroEvent?.expectedPomodoro?.cycles &&
+                            pomodoroEvent?.currPomodoro?.cycles &&
+                            pomodoroEvent.expectedPomodoro.cycles -
+                            pomodoroEvent.currPomodoro.cycles}
+                        </TableCell>
+                        <TableCell>
+                          {pomodoroEvent?.expectedPomodoro?.study &&
+                            pomodoroEvent?.expectedPomodoro?.relax &&
+                            pomodoroEvent?.expectedPomodoro?.cycles &&
+                            Math.floor(
+                              ((pomodoroEvent.expectedPomodoro.study +
+                                pomodoroEvent.expectedPomodoro.relax) *
+                                pomodoroEvent.expectedPomodoro.cycles /
+                                60000) * 100
+                            ) / 100} min
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>Expected Session</TableCell>
+                        <TableCell colSpan={2} className="font-medium text-right">
+                          {pomodoroEvent?.expectedPomodoro?.cycles}
+                        </TableCell>
+                        <TableCell>
+                          {pomodoroEvent?.expectedPomodoro?.study &&
+                            pomodoroEvent?.expectedPomodoro?.relax &&
+                            pomodoroEvent?.expectedPomodoro?.cycles &&
+                            Math.floor(
+                              ((pomodoroEvent.expectedPomodoro.study +
+                                pomodoroEvent.expectedPomodoro.relax) *
+                                pomodoroEvent.expectedPomodoro.cycles /
+                                60000) * 100
+                            ) / 100} min
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                    <TableFooter>
+                      <TableRow>
+                        <TableCell colSpan={1}>Progress Made</TableCell>
+                        <TableCell colSpan={4} className="text-right">
+                          {pomodoroProgress * 100}%
+                        </TableCell>
+                      </TableRow>
+                    </TableFooter>
+                  </Table>
+                </CardContent>
+              </div>
+
+            </div>
           </Card>
         </div>
 
@@ -338,7 +329,11 @@ export default function Home() {
         <div className="col-span-1">
           <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
-              <CardTitle>Events</CardTitle>
+              <CardTitle>
+                <NavLink to="/calendar">
+                  Events
+                </NavLink>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <DataTable
@@ -357,26 +352,36 @@ export default function Home() {
         <div className="col-span-1">
           <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
-              <CardTitle>Notes</CardTitle>
+              <CardTitle>
+                <NavLink to="/notes">
+                  Notes
+                </NavLink>
+              </CardTitle>
             </CardHeader>
             <CardContent className="flex-center md:px-14">
               <Carousel className="w-full max-w-xs">
                 <CarouselContent>
-                  {notes.map((note) => (
-                    <CarouselItem key={note._id}>
-                      <NoteCard
-                        key={note._id}
-                        id={note._id as string}
-                        title={note.title}
-                        content={note.content}
-                        categories={note.categories}
-                        createdAt={note.createdAt}
-                        updatedAt={note.updatedAt}
-                        author={note.author}
-                        simplified={true}
-                      />
-                    </CarouselItem>
-                  ))}
+                  {notes.length >= 1 ?
+                    (notes.map((note) => (
+                      <CarouselItem key={note._id}>
+                        <NoteCard
+                          key={note._id}
+                          id={note._id as string}
+                          title={note.title}
+                          content={note.content}
+                          categories={note.categories}
+                          createdAt={note.createdAt}
+                          updatedAt={note.updatedAt}
+                          author={note.author}
+                          simplified={true}
+                        />
+                      </CarouselItem>
+                    )))
+                    :
+                    <div className="text-center ml-4 w-full">
+                      No notes
+                    </div>}
+
                 </CarouselContent>
                 <CarouselPrevious className="max-md:hidden" />
                 <CarouselNext className="max-md:hidden" />
@@ -389,7 +394,11 @@ export default function Home() {
         <div className="col-span-1">
           <Card className="bg-popover shadow-lg w-full h-full flex flex-col">
             <CardHeader>
-              <CardTitle>Activities</CardTitle>
+              <CardTitle>
+                <NavLink to="/calendar">
+                  Activities
+                </NavLink>
+              </CardTitle>
             </CardHeader>
             <CardContent>
               <ActivityTable isInHome={true} />
