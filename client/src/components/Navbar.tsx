@@ -16,7 +16,7 @@ export default function Navbar() {
         {/* Top: Logo + Navigazione */}
         <div className="flex flex-col gap-6">
           <NavLink to="/home">
-            <Logo size="sm" />
+            <Logo size="md" />
           </NavLink>
 
           <div className="flex flex-col gap-8">
