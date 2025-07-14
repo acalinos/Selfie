@@ -303,11 +303,11 @@ export default function Pomodoro() {
     <div>
       <div className="my-4">
         <h1 className="text-center text-primary font-bold my-4">Pomodoro</h1>
-        <div className="flex-center justify-start flex-col gap-5 my-6">
+        <div className="flex-center justify-start flex-col gap-5 my-6 sm:my-0">
           <p className="leading-6">
             Organize your pomodoro session with:
           </p>
-          <ul className="list-disc small-regular sm:base-regular">
+          <ul className="list-disc small-regular sm:base-regular px-6">
             <li className="leading-6">
               <b>timers</b>: set study timer, pause timer and number of cycles;
             </li>
@@ -319,7 +319,7 @@ export default function Pomodoro() {
       </div>
 
       <div className="w-full flex justify-center">
-        <div className="grid grid-cols-12 gap-4 flex items-center max-w-max">
+        <div className="grid mg:grid-cols-1 xl:grid-cols-12 gap-5 min-w-fit max-w-max">
 
           <div className="col-span-4 my-12">
             {/* Forms */}

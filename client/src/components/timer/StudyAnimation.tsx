@@ -100,7 +100,7 @@ export default function StudyAnimation({
         }}
       >
         <div className="pulse">
-          <span
+          {/* <span
             id="pulse1"
             style={{
               animationIterationCount: repetitions.current,
@@ -113,7 +113,7 @@ export default function StudyAnimation({
               animationIterationCount: repetitions.current,
               animationPlayState: timer.study.started ? "running" : "paused",
             }}
-          ></span>
+          ></span> */}
           <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] timer-medium text-red-50">
             {msToTime(timer.study.value)}
           </div>

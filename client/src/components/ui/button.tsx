@@ -16,7 +16,7 @@ const buttonVariants = cva(
           "border items-center justify-center border-input bg-background hover:bg-accent hover:text-accent-foreground",
         secondary:
           "bg-secondary items-center justify-center text-secondary-foreground hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
+        ghost: "hover:bg-accent hover:text-accent-foreground items-center justify-center",
         link: "text-foreground items-center justify-center underline-offset-4 hover:underline",
         profile: "hover:bg-red items-center justify-center"
       },
