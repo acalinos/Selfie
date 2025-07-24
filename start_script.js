@@ -31,6 +31,11 @@ const clientPackageJsonPath = path.join(
 const dotenvFrontendPath = path.join(rootDirectory, "client", ".env");
 const dotenvBackendPath = path.join(rootDirectory, "server", ".env");
 
+console.log("serverPackageJsonPath", serverPackageJsonPath)
+console.log("clientPackageJsonPath", clientPackageJsonPath)
+console.log("dotenvFrontendPath", dotenvFrontendPath)
+console.log("dotenvBackendPath", dotenvBackendPath)
+
 // Verifica se esistono i file package.json e .env
 if (
   !fs.existsSync(serverPackageJsonPath) ||
