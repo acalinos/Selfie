@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Logo from "@/components/Logo";
 import { ModeToggle } from "@/components/dashboard/ModeToggle";
 import LoginForm from "@/components/auth/LoginForm";
 import SignupForm from "@/components/auth/SignupForm";

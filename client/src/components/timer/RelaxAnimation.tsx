@@ -19,7 +19,6 @@ export default function RelaxAnimation({
 }: RelaxAnimationProps) {
   const timeouts = useRef<NodeJS.Timeout[]>([]);
 
-  let i = 0;
 
   useEffect(() => {
     // in case of refresh or user changing views we store the current timer in the local storage
