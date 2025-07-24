@@ -37,17 +37,17 @@ console.log("dotenvFrontendPath", dotenvFrontendPath)
 console.log("dotenvBackendPath", dotenvBackendPath)
 
 // Verifica se esistono i file package.json e .env
-if (
-  !fs.existsSync(serverPackageJsonPath) ||
-  !fs.existsSync(clientPackageJsonPath) ||
-  !fs.existsSync(dotenvFrontendPath) ||
-  !fs.existsSync(dotenvBackendPath)
-) {
-  console.error(
-    "File package.json or .env wasn't found in the specified directory"
-  );
-  process.exit(1);
-}
+// if (
+//   !fs.existsSync(serverPackageJsonPath) ||
+//   !fs.existsSync(clientPackageJsonPath) ||
+//   !fs.existsSync(dotenvFrontendPath) ||
+//   !fs.existsSync(dotenvBackendPath)
+// ) {
+//   console.error(
+//     "File package.json or .env wasn't found in the specified directory"
+//   );
+//   process.exit(1);
+// }
 
 // Funzione per installare le dipendenze
 function installDependencies(packageJsonPath, message, callback) {
