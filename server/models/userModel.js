@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcrypt");
 const validator = require("validator");
 const { getDefaultPic } = require("../controllers/mediaController");
 
@@ -7,7 +6,7 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
-    unique: true, // gli username sono richiesti e devono essere unici
+    unique: true,
   },
   password: {
     type: String,
@@ -24,14 +23,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", userSchema);
 
-/**
- * Throws an error when one of the parameters is either undefined or not valid
- * @param {String} username 
- * @param {String} password 
- * @param {String} name 
- * @param {String} surname 
- * @param {String} birthday 
- */
 function validation(username, password, name, surname, birthday) {
   if (!username || !password) {
     throw Error("Username and Password required");
@@ -46,36 +37,21 @@ function validation(username, password, name, surname, birthday) {
     birthday &&
     !validator.isDate(new Date(birthday).toISOString().split("T")[0])
   ) {
-    console.log(birthday);
     throw Error("Date of Birth not valid");
   }
 }
 
-// signup validation
-async function validateSignup(
-  username,
-  password,
-  name,
-  surname,
-  birthday
-) {
-
+async function validateSignup(username, password, name, surname, birthday) {
   validation(username, password, name, surname, birthday);
 
-  // check if username already exists
   const exists = await User.findOne({ username });
-
   if (exists) {
     throw Error("Username already in use");
   }
 
-  // aggiungere sale qb(10 caratteri)
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(password, salt);
-
   const user = await User.create({
     username,
-    password: hash,
+    password, // ⚠️ NO HASHING
     name,
     surname,
     profilePic: await getDefaultPic(),
@@ -86,37 +62,21 @@ async function validateSignup(
   return user;
 }
 
-// login data validation
 async function validateLogin(username, password) {
-  // validation
   if (!username || !password) {
     throw Error("All required fields must be filled");
   }
 
   const user = await User.findOne({ username });
 
-  if (!user) {
-    throw Error("Invalid Username or Password");
-  }
-
-  const match = await bcrypt.compare(password, user.password);
-
-  if (!match) {
+  if (!user || user.password !== password) {
     throw Error("Invalid Username or Password");
   }
 
   return user;
 }
 
-// updates a single User
-async function updateProfile(
-  username,
-  name,
-  surname,
-  birthday,
-  profilePic,
-  _id
-) {
+async function updateProfile(username, name, surname, birthday, profilePic, _id) {
   const profilePicID = profilePic.split("media/")[1];
 
   if (name && !validator.isAlpha(name)) {
@@ -129,7 +89,6 @@ async function updateProfile(
     birthday &&
     !validator.isDate(new Date(birthday).toISOString().split("T")[0])
   ) {
-    console.log(birthday);
     throw Error("Date not valid");
   }
   if (!mongoose.isValidObjectId(profilePicID)) {
@@ -139,18 +98,13 @@ async function updateProfile(
     throw Error("Object ID not valid");
   }
 
-  console.log({ username, name, surname, birthday, profilePicID });
-
-  // Find the user, then update single fields one by one
-  const user = await User.findById(_id);
-
   const newData = {
-    username: username,
-    name: name,
-    surname: surname,
-    birthday: birthday,
+    username,
+    name,
+    surname,
+    birthday,
     profilePic: profilePicID,
-  }
+  };
 
   return await User.findByIdAndUpdate(_id, { ...newData }, { new: true });
 }
@@ -158,19 +112,15 @@ async function updateProfile(
 async function updateAccount(currPassword, newPassword, confirmPassword, _id) {
   const user = await User.findById(_id);
 
-  const match = await bcrypt.compare(currPassword, user.password);
-
-  if (!match)
+  if (user.password !== currPassword) {
     throw Error("Current Password not valid");
+  }
 
-  if (newPassword !== confirmPassword)
+  if (newPassword !== confirmPassword) {
     throw Error("New Passwords don't match");
+  }
 
-  // aggiungere sale qb(10 caratteri)
-  const salt = await bcrypt.genSalt(10);
-  const hash = await bcrypt.hash(newPassword, salt);
-
-  user.password = hash;
+  user.password = newPassword;
 
   return await User.findByIdAndUpdate(_id, { ...user }, { new: true });
 }
