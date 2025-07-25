@@ -2,7 +2,7 @@
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:8000",
-  "https://site232434.tw.cs.unibo.it",
+  "https://site242541.tw.cs.unibo.it",
 ];
 
 // http://expressjs.com/en/resources/middleware/cors.html
