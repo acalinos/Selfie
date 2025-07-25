@@ -235,12 +235,12 @@ export default function Home() {
                 </NavLink>
               </CardTitle>
             </CardHeader>
-            <div className="grid grid-cols-12 gap-4 ">
-              <div className="col-span-6">
+            <div className="grid grid-cols-12 gap-4">
+              <div className="col-span-12 md:col-span-6">
                 <CardTitle className="text-center my-6">Last pomodoro session</CardTitle>
                 <RadialPomodoroChart progress={pomodoroProgress} />
               </div>
-              <div className="col-span-6">
+              <div className="col-span-12 md:col-span-6">
                 <CardTitle className="text-center my-6">Pomodoro stats</CardTitle>
 
                 <CardContent>

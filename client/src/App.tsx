@@ -6,8 +6,6 @@ import {
 } from "react-router-dom";
 // pages
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
 import WelcomePage from "./pages/WelcomePage";
 import ProtectedRoutes from "./components/ProtectedRoutes";
 import ErrorPage from "./pages/ErrorPage";
@@ -21,7 +19,6 @@ import Account from "./pages/Account";
 import TakeASelfie from "./pages/TakeASelfie";
 // layouts
 import DashboardLayout from "./layouts/DashboardLayout";
-import AuthLayout from "./layouts/AuthLayout";
 import SettingsLayout from "./layouts/SettingsLayout";
 
 // Per come è impostata la nostra app tutte le route devono stare dentro ad una route che fa da
@@ -46,10 +43,6 @@ const router = createBrowserRouter(
             <Route path="/settings/takeaselfie" element={<TakeASelfie />} />
           </Route>
         </Route>
-      </Route>
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
       </Route>
     </Route>
   )

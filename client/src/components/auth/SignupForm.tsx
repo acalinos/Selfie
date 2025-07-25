@@ -128,6 +128,10 @@ export default function SignupForm() {
                         onChange={(e) => {
                           field.onChange(parseISO(e.target.value));
                         }}
+                        min="1900-01-01"
+                        max={new Date(new Date().setFullYear(new Date().getFullYear() - 18))
+                          .toISOString()
+                          .split("T")[0]}
                       />
                     )}
                   />
