@@ -436,7 +436,7 @@ export default function CalendarPage() {
           {activities && <ActivityTable isInHome={false} />}
         </div>
       </div>
-      <div className="hidden md:flex flex-col items-center gap-4 mt-8 md:flex-row md:justify-around">
+      <div className="hidden md:flex flex-col gap-4 mt-8 md:flex-row md:justify-around">
         <EventForm />
         <ActivityForm />
       </div>

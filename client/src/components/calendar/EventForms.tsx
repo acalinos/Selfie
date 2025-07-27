@@ -147,7 +147,7 @@ export default function EventForm() {
         if (
           totalTime % (study.initialValue + relax.initialValue) >= 0 &&
           totalTime % (study.initialValue + relax.initialValue) <=
-            5 * 60 * 1000 &&
+          5 * 60 * 1000 &&
           newTimer.cycles < 11 &&
           Number.isInteger(study.initialValue / (60 * 1000))
         )
@@ -156,7 +156,7 @@ export default function EventForm() {
         if (
           totalTime % (study.initialValue + relax.initialValue) >= 0 &&
           totalTime % (study.initialValue + relax.initialValue) <=
-            25 * 60 * 1000 &&
+          25 * 60 * 1000 &&
           newTimer.cycles < 20 &&
           Number.isInteger(study.initialValue / (60 * 1000))
         )
@@ -319,93 +319,54 @@ export default function EventForm() {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-2 mt-2 w-full max-w-sm md:max-w-md"
-      >
-        {/* Campi normali dell'evento */}
-        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-2">
-          Importa un evento:
-        </div>
-        <Input
-          type="file"
-          accept=".ics"
-          ref={fileInputRef}
-          onChange={handleFileChange}
-          className="shad-input"
-        />
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Event Name</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Title of the event"
-                  className="shad-input"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="date"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Date</FormLabel>
-              <FormControl>
-                <Input
-                  type="datetime-local"
-                  className="shad-input"
-                  {...field}
-                  onChange={(e) => {
-                    field.onChange(e.target.value.substring(0, 16));
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="itsPomodoro"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-              <FormLabel>It's Pomodoro</FormLabel>
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        {/* Altri campi normali del form */}
-        {/* Duration */}
-        <div className="flex gap-5 items-center">
+      <div className="flex-1 bg-popover mt-10 p-5 rounded-md">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-2 mt-2 w-full max-w-sm md:max-w-md"
+        >
+          {/* Campi normali dell'evento */}
+          <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-2">
+            Importa un evento:
+          </div>
+          <Input
+            type="file"
+            accept=".ics"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            className="shad-input"
+          />
           <FormField
             control={form.control}
-            name="hours"
+            name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Hours</FormLabel>
+                <FormLabel>Event Name</FormLabel>
                 <FormControl>
                   <Input
-                    type="number"
+                    type="text"
+                    placeholder="Title of the event"
+                    className="shad-input"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="date"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Date</FormLabel>
+                <FormControl>
+                  <Input
+                    type="datetime-local"
+                    className="shad-input"
                     {...field}
                     onChange={(e) => {
-                      field.onChange(e.target.valueAsNumber); // vanilla react hook form is easier, but this will do
+                      field.onChange(e.target.value.substring(0, 16));
                     }}
                   />
                 </FormControl>
@@ -416,127 +377,38 @@ export default function EventForm() {
 
           <FormField
             control={form.control}
-            name="minutes"
+            name="itsPomodoro"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel>Minutes</FormLabel>
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                <FormLabel>It's Pomodoro</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    step={15}
-                    {...field}
-                    onChange={(e) => {
-                      field.onChange(e.target.valueAsNumber); // vanilla react hook form is easier, but this will do
-                    }}
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-        </div>
 
-        {form.watch("itsPomodoro") && (
-          <>
-            {selectedTimer && (
-              <Badge className="justify-center">
-                Study {selectedTimer.study.initialValue / 60000}m + Relax{" "}
-                {selectedTimer.relax.initialValue / 60000}
-                {"m, "}
-                {selectedTimer.cycles} cycles
-              </Badge>
-            )}
-
-            <Button type="button" onClick={() => createOptions()}>
-              Show Options
-            </Button>
-
-            <div className="grid grid-cols-3 gap-2">
-              {session.map((timer, key) => (
-                <Button
-                  key={key}
-                  type="button"
-                  className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
-                  onClick={() => configurePomodoro(timer)}
-                >
-                  {timer.study.initialValue / (1000 * 60)}/
-                  {timer.relax.initialValue / (1000 * 60)} x {timer.cycles}
-                </Button>
-              ))}
-            </div>
-          </>
-        )}
-
-        {/* Location */}
-        {!form.watch("itsPomodoro") && (
-        <FormField
-          control={form.control}
-          name="location"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="shad-form_label">Location</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Location of the event"
-                  className="shad-input"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        )}
-
-        {/* Recurring */}
-        {!form.watch("itsPomodoro") && (
-        <FormField
-          control={form.control}
-          name="isRecurring"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-              <FormLabel className="shad-form_label">Is Recurring</FormLabel>
-              <FormControl>
-                <Checkbox
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        )}
-
-        {form.watch("isRecurring") && (
-          <>
+          {/* Altri campi normali del form */}
+          {/* Duration */}
+          <div className="flex gap-5 items-center">
             <FormField
               control={form.control}
-              name="recurrencePattern.frequency"
-              render={() => (
+              name="hours"
+              render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Frequency</FormLabel>
+                  <FormLabel>Hours</FormLabel>
                   <FormControl>
-                    <Select
-                      onValueChange={(value) =>
-                        form.setValue(
-                          "recurrencePattern.frequency",
-                          value as "daily" | "weekly" | "monthly"
-                        )
-                      }
-                    >
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Select frequency" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="daily">Daily</SelectItem>
-                          <SelectItem value="weekly">Weekly</SelectItem>
-                          <SelectItem value="monthly">Monthly</SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                    <Input
+                      type="number"
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e.target.valueAsNumber); // vanilla react hook form is easier, but this will do
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -545,129 +417,259 @@ export default function EventForm() {
 
             <FormField
               control={form.control}
-              name="recurrencePattern.endType"
-              render={() => (
+              name="minutes"
+              render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">End Type</FormLabel>
+                  <FormLabel>Minutes</FormLabel>
                   <FormControl>
-                    <Select
-                      onValueChange={(value) =>
-                        form.setValue(
-                          "recurrencePattern.endType",
-                          value as "after" | "until"
-                        )
-                      }
-                    >
-                      <SelectTrigger className="w-[180px]">
-                        <SelectValue placeholder="Select end type" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          <SelectItem value="after">
-                            After N occurrences
-                          </SelectItem>
-                          <SelectItem value="until">
-                            Until a specific date
-                          </SelectItem>
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
+                    <Input
+                      type="number"
+                      step={15}
+                      {...field}
+                      onChange={(e) => {
+                        field.onChange(e.target.valueAsNumber); // vanilla react hook form is easier, but this will do
+                      }}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+          </div>
 
-            {form.watch("recurrencePattern.endType") === "after" && (
+          {form.watch("itsPomodoro") && (
+            <>
+              {selectedTimer && (
+                <Badge className="justify-center">
+                  Study {selectedTimer.study.initialValue / 60000}m + Relax{" "}
+                  {selectedTimer.relax.initialValue / 60000}
+                  {"m, "}
+                  {selectedTimer.cycles} cycles
+                </Badge>
+              )}
+
+              <Button type="button" onClick={() => createOptions()}>
+                Show Options
+              </Button>
+
+              <div className="grid grid-cols-3 gap-2">
+                {session.map((timer, key) => (
+                  <Button
+                    key={key}
+                    type="button"
+                    className="focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                    onClick={() => configurePomodoro(timer)}
+                  >
+                    {timer.study.initialValue / (1000 * 60)}/
+                    {timer.relax.initialValue / (1000 * 60)} x {timer.cycles}
+                  </Button>
+                ))}
+              </div>
+            </>
+          )}
+
+          {/* Location */}
+          {!form.watch("itsPomodoro") && (
+            <FormField
+              control={form.control}
+              name="location"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Location</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      placeholder="Location of the event"
+                      className="shad-input"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          {/* Recurring */}
+          {!form.watch("itsPomodoro") && (
+            <FormField
+              control={form.control}
+              name="isRecurring"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                  <FormLabel className="shad-form_label">Is Recurring</FormLabel>
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          )}
+
+          {form.watch("isRecurring") && (
+            <>
               <FormField
                 control={form.control}
-                name="recurrencePattern.occurrences"
-                render={({ field }) => (
+                name="recurrencePattern.frequency"
+                render={() => (
                   <FormItem>
-                    <FormLabel className="shad-form_label">
-                      Occurrences
-                    </FormLabel>
+                    <FormLabel className="shad-form_label">Frequency</FormLabel>
                     <FormControl>
-                      <Input
-                        type="number"
-                        className="shad-input"
-                        {...field}
-                        onChange={(e) => {
-                          field.onChange(e.target.valueAsNumber);
-                        }}
-                      />
+                      <Select
+                        onValueChange={(value) =>
+                          form.setValue(
+                            "recurrencePattern.frequency",
+                            value as "daily" | "weekly" | "monthly"
+                          )
+                        }
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select frequency" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="daily">Daily</SelectItem>
+                            <SelectItem value="weekly">Weekly</SelectItem>
+                            <SelectItem value="monthly">Monthly</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            )}
 
-            {form.watch("recurrencePattern.endType") === "until" && (
               <FormField
                 control={form.control}
-                name="recurrencePattern.endDate"
-                render={({ field }) => (
+                name="recurrencePattern.endType"
+                render={() => (
                   <FormItem>
-                    <FormLabel className="shad-form_label">End Date</FormLabel>
+                    <FormLabel className="shad-form_label">End Type</FormLabel>
                     <FormControl>
-                      <Input
-                        type="datetime-local"
-                        className="shad-input"
-                        {...field}
-                      />
+                      <Select
+                        onValueChange={(value) =>
+                          form.setValue(
+                            "recurrencePattern.endType",
+                            value as "after" | "until"
+                          )
+                        }
+                      >
+                        <SelectTrigger className="w-[180px]">
+                          <SelectValue placeholder="Select end type" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value="after">
+                              After N occurrences
+                            </SelectItem>
+                            <SelectItem value="until">
+                              Until a specific date
+                            </SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            )}
-          </>
-        )}
-        <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-2">
-          Aggiungi utente:
-        </div>
-        <UserFinder
-          onUserSelect={(username: string) => {
-            // Aggiungi l'username selezionato a specificAccess se non è già presente
-            if (!form.getValues("groupList").includes(username)) {
-              form.setValue("groupList", [
-                ...form.getValues("groupList"),
-                username,
-              ]);
-            }
-          }}
-        />
 
-        {/* Visualizza gli utenti con accesso specifico */}
-        <div className="mt-4">
-          {form.getValues("groupList").map((username, index) => (
-            <span
-              key={index}
-              className="inline-block bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 px-3 py-1 rounded-lg mr-2 mb-2"
-            >
-              {username}
-            </span>
-          ))}
-        </div>
+              {form.watch("recurrencePattern.endType") === "after" && (
+                <FormField
+                  control={form.control}
+                  name="recurrencePattern.occurrences"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="shad-form_label">
+                        Occurrences
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          className="shad-input"
+                          {...field}
+                          onChange={(e) => {
+                            field.onChange(e.target.valueAsNumber);
+                          }}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
 
-        {form.formState.errors.root && (
-          <FormMessage>
-            {form.formState.errors.root.serverError?.message ||
-              form.formState.errors.root.validation?.message}
-          </FormMessage>
-        )}
+              {form.watch("recurrencePattern.endType") === "until" && (
+                <FormField
+                  control={form.control}
+                  name="recurrencePattern.endDate"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="shad-form_label">End Date</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="datetime-local"
+                          className="shad-input"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              )}
+            </>
+          )}
+          <div className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 mt-2">
+            Aggiungi utente:
+          </div>
+          <UserFinder
+            onUserSelect={(username: string) => {
+              // Aggiungi l'username selezionato a specificAccess se non è già presente
+              if (!form.getValues("groupList").includes(username)) {
+                form.setValue("groupList", [
+                  ...form.getValues("groupList"),
+                  username,
+                ]);
+              }
+            }}
+          />
 
-        {form.formState.errors.recurrencePattern && (
-          <FormMessage>
-            {form.formState.errors.recurrencePattern.message}
-          </FormMessage>
-        )}
+          {/* Visualizza gli utenti con accesso specifico */}
+          <div className="mt-4">
+            {form.getValues("groupList").map((username, index) => (
+              <span
+                key={index}
+                className="inline-block bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-gray-100 px-3 py-1 rounded-lg mr-2 mb-2"
+              >
+                {username}
+              </span>
+            ))}
+          </div>
 
-        <Button type="submit">
-          {form.formState.isSubmitting ? <Loader /> : "Add Event"}
-        </Button>
-      </form>
+          {form.formState.errors.root && (
+            <FormMessage>
+              {form.formState.errors.root.serverError?.message ||
+                form.formState.errors.root.validation?.message}
+            </FormMessage>
+          )}
+
+          {form.formState.errors.recurrencePattern && (
+            <FormMessage>
+              {form.formState.errors.recurrencePattern.message}
+            </FormMessage>
+          )}
+
+          <Button type="submit">
+            {form.formState.isSubmitting ? <Loader /> : "Add Event"}
+          </Button>
+        </form>
+      </div>
     </Form>
   );
 }

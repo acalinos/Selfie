@@ -69,7 +69,7 @@ export default function ActivityForm() {
   }
 
   return (
-    <div>
+    <div className="flex-1 bg-popover rounded-md p-5 mt-10">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
