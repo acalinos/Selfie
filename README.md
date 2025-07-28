@@ -6,7 +6,7 @@ Frontend of the web application is built with ReactJs Framework using vite serve
 A Node + ExpressJs server is provided for the backend.
 
 ## Quick Start
-cd client
+cd client<br>
 npm install
 npm run dev
 
