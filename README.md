@@ -1,12 +1,14 @@
 # SelfieApp
-Selfie App project for Web Tecnologies 2024/2025 course at University of Bologna. 
-
+Selfie App project for Web Tecnologies 2024/2025 course at University of Bologna. Selfie is a digital platform designed to help students manage their academic, social, and personal lives.
+ 
 ## Technologies Used
 Frontend of the web application is built with ReactJs Framework using vite server during development. 
 A Node + ExpressJs server is provided for the backend.
 
-Public Key:
-BMhb8cHPkEOIvD0G6s8q4EbDIhZnd-4ZecA5Ea5on9X-48pkMOWZ6HtK3JNbx3buUYSHM7ULkJCtRonC6GCYxAs
+## Quick Start
+cd client
+npm install
+npm run dev
 
-Private Key:
-K6FsLNFg_8yGRf1NGktFETihifySYnm0eS2n1FGd2Gg
+## Build
+npm run build
